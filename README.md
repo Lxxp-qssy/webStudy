@@ -51,7 +51,7 @@ src/
 │   ├─ WhyPane.vue         现象层：diff / 判读 / 报错 / 完成
 │   ├─ TimeBar.vue         时间轴：播放、单步、重放、拖拽、调速
 │   ├─ BootVeil.vue        启动遮罩：上电仪式（1.1s 自动退场）
-│   ├─ ParticlesBg.vue     动态背景：tsParticles 网络星图（低速节点 + 近距连线，零交互）
+│   ├─ ParticlesBg.vue     动态背景：极光色雾 + tsParticles 网络星图（辉光节点/闪烁/连线，零交互）
 │   └─ Toast.vue           板块完成提示条
 ├─ labs/
 │   ├─ lab01.js … lab12.js 实验定义（纯数据 + 规则，不含 DOM），一实验一文件
