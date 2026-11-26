@@ -43,7 +43,7 @@ input{font-family:inherit}
 }
 /* 动态背景（tsParticles 网络星图）：固定铺底、低透明度、零交互 */
 .bg-net{z-index:0}
-.bg-net canvas{display:block;width:100%!important;height:100%!important}
+.bg-net canvas{display:block;width:100%!important;height:100%!important;pointer-events:none!important}
 
 /* 动态背景（极光色雾）：4 个大色团错峰漂移，毛玻璃面板后透出柔和色场 */
 .bg-aurora{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}

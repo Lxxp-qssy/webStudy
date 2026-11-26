@@ -1,7 +1,7 @@
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import { LABS } from "../labs/index.js";
-import { readLab, overall } from "../lib/store.js";
+import { readLab, overall, clearAll } from "../lib/store.js";
 import ParticlesBg from "../components/ParticlesBg.vue";
 
 const prog = ref({});
@@ -27,6 +27,41 @@ function pctOf(l){
   if(!r || !r.done) return 0;
   return Math.min(100, Math.round(r.done / (l.steps || 1) * 100));
 }
+
+/* 全局重置学习进度：两段式确认，与实验页重置同一交互约定 */
+const resetArmed = ref(false);
+const resetMsg = ref("");
+let resetTimer = 0;
+let msgTimer = 0;
+const canReset = computed(() => stats.value.done > 0 || stats.value.touched > 0);
+const resetTitle = computed(function(){
+  if(resetArmed.value) return "再点一次确认重置（3 秒后自动取消）";
+  if(!canReset.value) return "还没有任何学习进度，无需重置";
+  return "重置学习进度：同步清空全部实验的已完成进度";
+});
+function onReset(){
+  if(!canReset.value) return;
+  if(!resetArmed.value){
+    resetArmed.value = true;
+    clearTimeout(resetTimer);
+    resetTimer = setTimeout(function(){ resetArmed.value = false; }, 3000);
+    return;
+  }
+  clearTimeout(resetTimer);
+  resetArmed.value = false;
+  clearAll();
+  const p = {};
+  LABS.forEach(function(l){ p[l.id] = readLab(l.id); });
+  prog.value = p;
+  stats.value = overall(LABS);
+  resetMsg.value = "已清空全部实验的学习进度";
+  clearTimeout(msgTimer);
+  msgTimer = setTimeout(function(){ resetMsg.value = ""; }, 3000);
+}
+onUnmounted(function(){
+  clearTimeout(resetTimer);
+  clearTimeout(msgTimer);
+});
 </script>
 
 <template>
@@ -140,7 +175,19 @@ function pctOf(l){
         </div>
         <div class="prog-bar"><i :style="{ width: stats.pct + '%' }"></i></div>
         <div class="prog-note">
-          已完成 {{ stats.touched }} 个实验的部分内容 · 进度存在本机浏览器，不上传
+          <div>已完成 {{ stats.touched }} 个实验的部分内容 · 进度存在本机浏览器，不上传</div>
+          <button class="undo-btn reset-btn prog-reset"
+                  :class="{ armed: resetArmed }"
+                  :disabled="!canReset"
+                  :title="resetTitle"
+                  @click="onReset">
+            <svg viewBox="0 0 12 12" fill="none" aria-hidden="true">
+              <path d="M10.2 6 A4.2 4.2 0 1 1 6 1.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M6.2 0.4 L9.6 2 L7 4.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            {{ resetArmed ? "确认重置" : "重置学习进度" }}
+          </button>
+          <div v-if="resetMsg" class="prog-reset-msg">{{ resetMsg }}</div>
         </div>
       </div>
     </main>
@@ -171,4 +218,11 @@ function pctOf(l){
 .prog-bar i{display:block;height:100%;background:linear-gradient(90deg,#1E8FA8,var(--cyan));transition:width .6s cubic-bezier(.2,1,.4,1);box-shadow:0 0 10px rgba(56,225,255,.6)}
 .prog-note{font-size:11px;color:var(--ink-faint);max-width:34ch;text-align:right}
 @media (max-width:860px){.prog-note{text-align:left;max-width:none}}
+/* 全局重置按钮：与实验页 reset-btn 同一套 armed 视觉 */
+.prog-reset{margin-top:10px;margin-left:auto;display:inline-flex}
+@media (max-width:860px){.prog-reset{margin-left:0}}
+.prog-reset-msg{
+  margin-top:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+  color:var(--ok);animation:cardIn .35s ease-out both;
+}
 </style>

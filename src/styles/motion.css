@@ -179,7 +179,8 @@ tr.chg{animation:rowChg 1.6s ease-out}
 /* ---------------- 首页 ---------------- */
 .home{position:relative;z-index:1}
 /* 宽度随窗口走：宽屏铺开，窄屏收边，不锁死在中轴 */
-.home .wrap{max-width:1880px;margin:0 auto;padding:0 clamp(16px,3.2vw,64px) 76px}
+/* position:relative + z-index:1 让内容压过 fixed 背景层（含粒子 canvas），保证可点击 */
+.home .wrap{position:relative;z-index:1;max-width:1880px;margin:0 auto;padding:0 clamp(16px,3.2vw,64px) 76px}
 
 .hero{
   position:relative;overflow:hidden;

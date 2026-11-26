@@ -35,6 +35,13 @@ export function clearLab(id){
   }catch(e){ /* 隐私模式下忽略 */ }
 }
 
+/* 全局重置：清空全部实验的学习进度（首页"重置学习进度"用） */
+export function clearAll(){
+  try{
+    localStorage.removeItem(KEY);
+  }catch(e){ /* 隐私模式下忽略 */ }
+}
+
 export function overall(list){
   let done = 0, total = 0, touched = 0;
   list.forEach(function(it){
