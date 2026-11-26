@@ -6,6 +6,7 @@ dist/
 _*
 *.log
 *.tmp
+.wb-shots/
 
 # 系统文件
 .DS_Store

@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from "vue";
 import { LABS } from "../labs/index.js";
 import { readLab, overall } from "../lib/store.js";
+import ParticlesBg from "../components/ParticlesBg.vue";
 
 const prog = ref({});
 const stats = ref({ done: 0, total: 0, touched: 0, pct: 0 });
@@ -32,6 +33,7 @@ function pctOf(l){
   <div class="home">
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
+    <ParticlesBg />
     <div class="bg-scan"></div>
 
     <header class="topbar">
@@ -149,11 +151,11 @@ function pctOf(l){
 .brand{display:flex;align-items:center;gap:9px;text-decoration:none;color:inherit}
 .topbar{padding:0 clamp(16px,3.2vw,64px)}
 .brand b{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;color:var(--ink-hi);display:block}
-.brand span{font-size:9.5px;color:var(--ink-faint);letter-spacing:.1em}
+.brand span{font-size:10px;color:var(--ink-faint);letter-spacing:.1em}
 .topnav{margin-left:auto;display:flex;gap:18px}
 .topnav a{font-size:11.5px;color:var(--ink-dim);text-decoration:none;transition:color .15s}
 .topnav a:hover{color:var(--cyan)}
-.kicker{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--ink-faint);margin-bottom:16px}
+.kicker{font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--ink-faint);margin-bottom:16px}
 .prog-panel{
   border:1px solid var(--line-soft);border-radius:3px;padding:18px 22px;background:rgba(13,18,25,.7);
   display:grid;grid-template-columns:auto minmax(160px,1fr) auto;

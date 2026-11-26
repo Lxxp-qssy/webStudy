@@ -8,6 +8,7 @@ import WhyPane from "../components/WhyPane.vue";
 import TimeBar from "../components/TimeBar.vue";
 import Toast from "../components/Toast.vue";
 import BootVeil from "../components/BootVeil.vue";
+import ParticlesBg from "../components/ParticlesBg.vue";
 
 const props = defineProps({ def: { type: Object, required: true } });
 
@@ -109,6 +110,7 @@ function togglePlay(){ lab.togglePlay(); }
   <div class="page">
     <div class="bg-grid"></div>
     <div class="bg-glow"></div>
+    <ParticlesBg />
 
     <BootVeil v-if="booting" :def="def" @done="booting = false" />
 
