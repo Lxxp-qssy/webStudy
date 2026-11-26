@@ -32,7 +32,7 @@ npm run build      # 产出 dist/，并自检「零外部引用」
 
 ## 目录
 
-根目录只有四个文件夹 + 配置文档。**入口全部在 `entries/`**（每个实验一对 html + js 薄壳，各 5 行挂载代码）；`src/` 是纯应用代码，不掺杂入口。
+根目录只有四个文件夹 + 配置文档。**入口全部在 `entries/`**（每个实验一对 html + js 薄壳，统一走 `lib/mountApp.js` 装配）；`src/` 是纯应用代码，不掺杂入口。
 
 ```
 entries/                 页面入口（npm run dev 直接打开 entries/lab-XX.html）
@@ -51,12 +51,13 @@ src/
 │   ├─ WhyPane.vue         现象层：diff / 判读 / 报错 / 完成
 │   ├─ TimeBar.vue         时间轴：播放、单步、重放、拖拽、调速
 │   ├─ BootVeil.vue        启动遮罩：上电仪式（1.1s 自动退场）
+│   ├─ ParticlesBg.vue     动态背景：tsParticles 网络星图（低速节点 + 近距连线，零交互）
 │   └─ Toast.vue           板块完成提示条
 ├─ labs/
 │   ├─ lab01.js … lab12.js 实验定义（纯数据 + 规则，不含 DOM），一实验一文件
 │   └─ index.js            实验清单元数据（首页与进度共用）
 ├─ views/{LabView,HomeView}.vue
-├─ lib/{util,store}.js     工具函数、进度存取
+├─ lib/{util,store,mountApp}.js  工具函数、进度存取、统一装配线（tsParticles 插件 + 全局样式）
 └─ styles/{app,motion}.css 基础样式 / 动效层
 ```
 

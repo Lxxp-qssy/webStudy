@@ -224,7 +224,10 @@ tr.chg{animation:rowChg 1.6s ease-out}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,218px),1fr));gap:clamp(10px,.9vw,16px)}
 .card{
   position:relative;display:block;padding:14px 15px 15px;
-  background:linear-gradient(180deg,rgba(13,18,25,.9),rgba(9,13,18,.94));
+  /* 毛玻璃卡片：透出动态星图背景，悬停高光不变 */
+  background:linear-gradient(180deg,rgba(13,18,25,.56),rgba(9,13,18,.62));
+  backdrop-filter:blur(14px) saturate(1.25);
+  -webkit-backdrop-filter:blur(14px) saturate(1.25);
   border:1px solid var(--line-soft);border-radius:3px;
   text-decoration:none;color:inherit;overflow:hidden;
   transition:transform .22s cubic-bezier(.2,1,.4,1),border-color .22s,box-shadow .22s;
@@ -263,7 +266,10 @@ tr.chg{animation:rowChg 1.6s ease-out}
 .layer-card{
   position:relative;z-index:1;overflow:hidden;
   border:1px solid var(--line-soft);border-radius:3px;
-  background:linear-gradient(180deg,rgba(13,18,25,.9),rgba(8,11,16,.94));
+  /* 毛玻璃示意卡 */
+  background:linear-gradient(180deg,rgba(13,18,25,.54),rgba(8,11,16,.6));
+  backdrop-filter:blur(16px) saturate(1.25);
+  -webkit-backdrop-filter:blur(16px) saturate(1.25);
   padding:16px 18px 14px;
   box-shadow:0 18px 48px rgba(0,0,0,.45);
 }
@@ -275,7 +281,7 @@ tr.chg{animation:rowChg 1.6s ease-out}
 @keyframes scanLine{0%,100%{transform:translateY(0);opacity:.2}50%{transform:translateY(196px);opacity:.9}}
 .layer-h{
   display:flex;align-items:center;justify-content:space-between;
-  font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;color:var(--ink-faint);
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--ink-faint);
   padding-bottom:11px;border-bottom:1px solid var(--line-soft);
 }
 .layer-h b{color:var(--ok);font-weight:400;display:flex;align-items:center;gap:6px;letter-spacing:.16em}

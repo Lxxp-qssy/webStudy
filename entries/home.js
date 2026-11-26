@@ -1,5 +1,4 @@
-import { createApp } from "vue";
-import "../src/styles/index.css";
+import { mountApp } from "../src/lib/mountApp.js";
 import HomeView from "../src/views/HomeView.vue";
 
-createApp(HomeView).mount("#app");
+mountApp(HomeView);
