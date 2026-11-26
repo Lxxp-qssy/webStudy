@@ -1,0 +1,20 @@
+{
+  "name": "netlab",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "NETLAB — 网络配置可视化学站：命令 → 机制 → 现象",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "vite": "^5.4.11",
+    "vite-plugin-singlefile": "^2.0.3"
+  }
+}

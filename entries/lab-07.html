@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- 源入口（Vite entry）。构建产物在 dist/，双击 dist/lab-07.html 使用。 -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>实验 07 · DHCP 四步交互 — NETLAB</title>
+<style>/* 挂载前的加载画面：底色与 BootVeil 一致，挂载后无缝接管 */
+body{margin:0;background:#04070B}
+.boot-flash{position:fixed;inset:0;display:grid;place-items:center;background:#04070B}
+.boot-flash .bf-tag{display:inline-flex;align-items:center;gap:7px;font-family:ui-monospace,monospace;font-size:9.5px;letter-spacing:.28em;color:#38E1FF;border:1px solid rgba(56,225,255,.24);border-radius:2px;padding:3px 9px;animation:bfPulse 1.2s ease-in-out infinite}
+.boot-flash .bf-tag i{width:4px;height:4px;border-radius:50%;background:#38E1FF;box-shadow:0 0 8px #38E1FF}
+@keyframes bfPulse{0%,100%{opacity:.4}50%{opacity:1}}
+</style>
+</head>
+<body>
+<div id="app"><div class="boot-flash"><span class="bf-tag"><i></i>NETLAB · LOADING</span></div></div>
+<script type="module" src="./lab07.js"></script>
+</body>
+</html>
