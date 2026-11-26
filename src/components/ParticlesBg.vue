@@ -1,10 +1,10 @@
 <script setup>
 /**
- * 动态背景：网络星图（tsParticles slim）
+ * 动态背景：极光色雾 + 网络星图（双层）
  * -------------------------------------------------------------------------
- * 低速漂移的节点 + 就近亮起的连线，语义贴合「网络设备互联」的主题；
- * 固定铺底、零鼠标/点击交互、整体低透明度 —— 只做氛围，不抢内容、不影响命令输入。
- * prefers-reduced-motion 用户直接不渲染粒子，退回静态背景。
+ * 第一层：缓慢漂移的极光色雾（纯 CSS 位移动画，GPU 合成层），提供氛围色；
+ * 第二层：tsParticles 星图 —— 带辉光的节点 + 近距连线 + 闪烁，贴合网络互联主题。
+ * 固定铺底、零鼠标/点击交互；prefers-reduced-motion 时星图不渲染、极光定格。
  */
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
@@ -27,7 +27,7 @@ onBeforeUnmount(function () {
   else if (mq.removeListener) mq.removeListener(sync);
 });
 
-/* 网络星图预设：节点稀、连线短、速度慢、透明度低 */
+/* 网络星图预设：节点带辉光、间歇闪烁、连线可见 */
 const options = {
   fullScreen: { enable: false },
   background: { color: { value: "transparent" } },
@@ -35,26 +35,40 @@ const options = {
   detectRetina: true,
   particles: {
     number: {
-      value: 58,
+      value: 72,
       density: { enable: true, width: 1600, height: 900 }
     },
-    color: { value: ["#38E1FF", "#2FB6D9", "#5CE6FF"] },
+    color: { value: ["#38E1FF", "#5CE6FF", "#2FB6D9"] },
     opacity: {
-      value: { min: 0.08, max: 0.34 }
+      value: { min: 0.18, max: 0.52 }
     },
     size: {
-      value: { min: 0.5, max: 1.8 }
+      value: { min: 0.8, max: 2.4 }
+    },
+    /* 节点辉光：把星点变成「发光节点」 */
+    shadow: {
+      enable: true,
+      blur: 10,
+      color: { value: "#38E1FF" }
+    },
+    /* 闪烁：节点周期性亮起，画面活起来 */
+    twinkle: {
+      particles: {
+        enable: true,
+        frequency: 0.06,
+        opacity: 0.95
+      }
     },
     links: {
       enable: true,
       distance: 150,
       color: "#38E1FF",
-      opacity: 0.085,
+      opacity: 0.13,
       width: 1
     },
     move: {
       enable: true,
-      speed: 0.32,
+      speed: 0.38,
       direction: "none",
       random: true,
       straight: false,
@@ -73,6 +87,14 @@ const options = {
 </script>
 
 <template>
+  <!-- 第一层：极光色雾（4 个色团错峰漂移） -->
+  <div class="bg-aurora" aria-hidden="true">
+    <i class="au au-1"></i>
+    <i class="au au-2"></i>
+    <i class="au au-3"></i>
+    <i class="au au-4"></i>
+  </div>
+  <!-- 第二层：网络星图 -->
   <VueParticles
     v-if="enabled"
     id="netlab-bg"
