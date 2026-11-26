@@ -1,0 +1,12 @@
+{
+  // Cloudflare Workers 静态资源部署配置
+  // 站点是纯静态多页（dist/ 下 13 个自包含 HTML），无需 Worker 脚本
+  "name": "webstudy",
+  "compatibility_date": "2024-11-01",
+  "assets": {
+    "directory": "./dist",
+    // 多页站点：直接按路径返回对应 HTML，无需 SPA 回退
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "none"
+  }
+}
